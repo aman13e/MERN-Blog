@@ -1,4 +1,3 @@
-import { errorMonitor } from "events";
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/err.js";
@@ -15,12 +14,6 @@ export const signup = async (req, res, next) => {
     email === ""
   ) {
     next(errorHandler(400, "All fields are required"));
-  }
-
-  const existingUser = await User.findOne({ email });
-
-  if (existingUser) {
-    return res.status(409).json({ message: "User already exists" });
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
