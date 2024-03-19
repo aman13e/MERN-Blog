@@ -1,7 +1,7 @@
 import { Button } from "flowbite-react";
 import React from "react";
 import { AiFillGoogleCircle } from "react-icons/ai";
-import { SignInSuccess } from "../redux/user/userSlice";
+import { signInSuccess } from "../redux/user/userSlice";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 
@@ -30,7 +30,7 @@ const OAuth = () => {
       });
       const data = await res.json();
       if (res.ok) {
-        dispatch(SignInSuccess(data));
+        dispatch(signInSuccess(data));
         navigate("/");
       }
     } catch (error) {

@@ -5,9 +5,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Button, TextInput, Label, Alert, Spinner } from "flowbite-react";
 
 import {
-  SignInFailure,
-  SignInStart,
-  SignInSuccess,
+  signInFailure,
+  signInStart,
+  signInSuccess,
 } from "../redux/user/userSlice";
 import OAuth from "../components/OAuth";
 const SignIn = () => {
@@ -23,10 +23,10 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formData.email || !formData.password) {
-      return dispatch(SignInFailure("All fields are required"));
+      return dispatch(signInFailure("All fields are required"));
     }
     try {
-      dispatch(SignInStart());
+      dispatch(signInStart());
       const res = await fetch("/api/auth/signin", {
         method: "POST",
         headers: {
@@ -36,12 +36,12 @@ const SignIn = () => {
       });
       const data = await res.json();
       if (data.success === false) {
-        return dispatch(SignInFailure(data.message));
+        return dispatch(signInFailure(data.message));
       }
       if (res.ok) navigate("/");
-      dispatch(SignInSuccess(data.user));
+      dispatch(signInSuccess(data.user));
     } catch (error) {
-      dispatch(SignInFailure(error.message));
+      dispatch(signInFailure(error.message));
     }
   };
   return (
